@@ -1,0 +1,22 @@
+module.exports = {
+    singleQuote: true,
+    semi: false,
+    arrowParens: "always",
+    bracketSpacing: true,
+    embeddedLanguageFormatting: "auto",
+    endOfLine: "auto",
+    htmlWhitespaceSensitivity: "css",
+    insertPragma: false,
+    jsxBracketSameLine: false,
+    jsxSingleQuote: false,
+    printWidth: 150,
+    proseWrap: "preserve",
+    quoteProps: "as-needed",
+    requirePragma: false,
+    useTabs: false,
+    vueIndentScriptAndStyle: false,
+    cursorOffset: -1,
+    trailingComma: "es5",
+    tabWidth: 2,
+}
+  
