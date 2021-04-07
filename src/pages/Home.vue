@@ -6,7 +6,6 @@
 <script>
 import sourceData from '@/data.json'
 import ThreadList from '@/components/ThreadList'
-
 export default {
   data() {
     return {
