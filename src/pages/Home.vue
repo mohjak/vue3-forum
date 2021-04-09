@@ -4,15 +4,13 @@
 </template>
 
 <script>
-import sourceData from '@/data.json'
 import CategoryList from '@/components/CategoryList'
 export default {
-  data() {
-    return {
-      categories: sourceData.categories,
-    }
-  },
-
   components: { CategoryList },
+  computed: {
+    categories() {
+      return this.$store.state.categories
+    },
+  },
 }
 </script>

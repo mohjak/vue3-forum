@@ -9,7 +9,6 @@
 </template>
 
 <script>
-import sourceData from '@/data.json'
 import PostList from '@/components/PostList'
 import PostEditor from '@/components/PostEditor'
 
@@ -25,13 +24,13 @@ export default {
       type: String,
     },
   },
-  data() {
-    return {
-      threads: sourceData.threads,
-      posts: sourceData.posts,
-    }
-  },
   computed: {
+    posts() {
+      return this.$store.state.posts
+    },
+    threads() {
+      return this.$store.state.threads
+    },
     thread() {
       return this.threads.find((thread) => thread.id === this.id) // also available under this.$route.params.id
     },

@@ -9,20 +9,19 @@
 </template>
 
 <script>
-import sourceData from '@/data'
 import ForumList from '@/components/ForumList'
 export default {
+  components: { ForumList },
   props: {
     categories: {
       type: Array,
       required: true,
     },
   },
-  components: { ForumList },
-  data() {
-    return {
-      forums: sourceData.forums,
-    }
+  computed: {
+    forums() {
+      return this.$store.state.forums
+    },
   },
   methods: {
     getForumsForCategory(category) {
