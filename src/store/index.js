@@ -8,7 +8,7 @@ export default createStore({
       post.id = 'qqqq' + Math.random()
       context.commit('setPost', { post }) // set the post
       context.commit('appendPostToThread', { postId: post.id, threadId: post.threadId }) // append post to thread
-    }
+    },
   },
   mutations: {
     setPost(state, { post }) {
@@ -18,5 +18,5 @@ export default createStore({
       const threads = state.threads.find((thread) => thread.id === threadId)
       threads.posts.push(postId)
     },
-  }
+  },
 })
