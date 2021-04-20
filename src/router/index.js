@@ -72,5 +72,5 @@ export default createRouter({
     if (to.meta.toTop) scroll.top = 0
     if (to.meta.smoothScroll) scroll.behavior = 'smooth'
     return scroll
-  }
+  },
 })
