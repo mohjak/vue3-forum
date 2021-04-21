@@ -1,11 +1,12 @@
 import sourceData from '@/data.json'
 import Home from '@/pages/Home'
 import Forum from '@/pages/Forum'
+import Profile from '@/pages/Profile'
 import Category from '@/pages/Category'
 import NotFound from '@/pages/NotFound'
+import ThreadEdit from '@/pages/ThreadEdit'
 import ThreadShow from '@/pages/ThreadShow'
 import ThreadCreate from '@/pages/ThreadCreate'
-import Profile from '@/pages/Profile'
 
 import { createRouter, createWebHistory } from 'vue-router'
 
@@ -19,13 +20,13 @@ const routes = [
     path: '/me',
     name: 'Profile',
     component: Profile,
-    meta: { toTop: true, smoothScroll: true }
+    meta: { toTop: true, smoothScroll: true },
   },
   {
     path: '/me/edit',
     name: 'ProfileEdit',
     component: Profile,
-    props: { edit: true }
+    props: { edit: true },
   },
   {
     path: '/category/:id',
@@ -66,6 +67,12 @@ const routes = [
     path: '/forum/:forumId/thread/create',
     name: 'ThreadCreate',
     component: ThreadCreate,
+    props: true,
+  },
+  {
+    path: '/thread/:id/edit',
+    name: 'ThreadEdit',
+    component: ThreadEdit,
     props: true,
   },
   { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },
