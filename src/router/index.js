@@ -4,6 +4,7 @@ import Forum from '@/pages/Forum'
 import Category from '@/pages/Category'
 import NotFound from '@/pages/NotFound'
 import ThreadShow from '@/pages/ThreadShow'
+import ThreadCreate from '@/pages/ThreadCreate'
 import Profile from '@/pages/Profile'
 
 import { createRouter, createWebHistory } from 'vue-router'
@@ -60,6 +61,12 @@ const routes = [
         })
       }
     },
+  },
+  {
+    path: '/form/:forumId/thread/create',
+    name: 'ThreadCreate',
+    component: ThreadCreate,
+    props: true,
   },
   { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },
 ]
