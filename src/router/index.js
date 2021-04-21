@@ -1,4 +1,5 @@
 import sourceData from '@/data.json'
+import { findById } from '@/helpers'
 import Home from '@/pages/Home'
 import Forum from '@/pages/Forum'
 import Profile from '@/pages/Profile'
@@ -47,7 +48,7 @@ const routes = [
     props: true,
     beforeEnter(to, from, next) {
       // check if thread exists
-      const trheadExists = sourceData.threads.find((thread) => thread.id === to.params.id)
+      const trheadExists = findById(sourceData.threads, to.params.id)
       // if exists continue
       if (trheadExists) {
         return next()
