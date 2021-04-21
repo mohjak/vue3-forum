@@ -71,7 +71,7 @@ export default createStore({
       }
     },
     setThread(state, { thread }) {
-      const index = state.posts.findIndex((t) => t.id === thread.id)
+      const index = state.threads.findIndex((t) => t.id === thread.id)
       if (thread.id && index !== -1) {
         state.threads[index] = thread
       } else {
