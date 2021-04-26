@@ -1,5 +1,6 @@
 import { createStore } from 'vuex'
 import { findById, upsert } from '@/helpers'
+import firebase from 'firebase'
 
 export default createStore({
   state: {
@@ -64,9 +65,6 @@ export default createStore({
       commit('appendPostToThread', { childId: post.id, parentId: post.threadId }) // append post to thread
       commit('appendContributorToThread', { childId: state.authId, parentId: post.threadId })
     },
-    updateUser({ commit }, user) {
-      commit('setUser', { user, userId: user.id })
-    },
     async createThread({ commit, state, dispatch }, { text, title, forumId }) {
       const id = 'ggqq' + Math.random()
       const userId = state.authId
@@ -86,6 +84,51 @@ export default createStore({
       commit('setThread', { thread: newThread })
       commit('setPost', { post: newPost })
       return newThread
+    },
+    updateUser({ commit }, user) {
+      commit('setUser', { user, userId: user.id })
+    },
+    fetchThread({ state, commit }, { id }) {
+      console.log('thread from firestore', id)
+      return new Promise((resolve) => {
+        firebase
+          .firestore()
+          .collection('threads')
+          .doc(id)
+          .onSnapshot((doc) => {
+            const thread = { ...doc.data(), id: doc.id }
+            commit('setThread', { thread })
+            resolve(thread)
+          })
+      })
+    },
+    fetchUser({ state, commit }, { id }) {
+      console.log('user from firestore', id)
+      return new Promise((resolve) => {
+        firebase
+          .firestore()
+          .collection('users')
+          .doc(id)
+          .onSnapshot((doc) => {
+            const user = { ...doc.data(), id: doc.id }
+            commit('setUser', { user })
+            resolve(user)
+          })
+      })
+    },
+    fetchPost({ state, commit }, { id }) {
+      console.log('post from firestore', id)
+      return new Promise((resolve) => {
+        firebase
+          .firestore()
+          .collection('posts')
+          .doc(id)
+          .onSnapshot((doc) => {
+            const post = { ...doc.data(), id: doc.id }
+            commit('setPost', { post })
+            resolve(post)
+          })
+      })
     },
   },
   mutations: {
