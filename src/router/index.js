@@ -1,5 +1,5 @@
-import sourceData from '@/data.json'
-import { findById } from '@/helpers'
+// import sourceData from '@/data.json'
+// import { findById } from '@/helpers'
 import Home from '@/pages/Home'
 import Forum from '@/pages/Forum'
 import Profile from '@/pages/Profile'
@@ -46,23 +46,23 @@ const routes = [
     name: 'ThreadShow',
     component: ThreadShow,
     props: true,
-    beforeEnter(to, from, next) {
-      // check if thread exists
-      const trheadExists = findById(sourceData.threads, to.params.id)
-      // if exists continue
-      if (trheadExists) {
-        return next()
-      } else {
-        // if doesnt exists redirect to not found
-        next({
-          name: 'NotFound',
-          params: { pathMatch: to.path.substring(1).split('/') },
-          // preserve existing query and hash
-          query: to.query,
-          hash: to.hash,
-        })
-      }
-    },
+    // beforeEnter(to, from, next) {
+    //   // check if thread exists
+    //   const trheadExists = findById(sourceData.threads, to.params.id)
+    //   // if exists continue
+    //   if (trheadExists) {
+    //     return next()
+    //   } else {
+    //     // if doesnt exists redirect to not found
+    //     next({
+    //       name: 'NotFound',
+    //       params: { pathMatch: to.path.substring(1).split('/') },
+    //       // preserve existing query and hash
+    //       query: to.query,
+    //       hash: to.hash,
+    //     })
+    //   }
+    // },
   },
   {
     path: '/forum/:forumId/thread/create',

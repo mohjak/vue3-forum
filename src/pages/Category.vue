@@ -16,13 +16,17 @@ export default {
   },
   computed: {
     category() {
-      return findById(this.$store.state.categories, this.id)
+      return findById(this.$store.state.categories, this.id) || {}
     },
   },
   methods: {
     getForumsForCategory() {
       return this.$store.state.forums.filter((forum) => forum.categoryId === this.id)
     },
+  },
+  async created() {
+    const category = await this.$store.dispatch('fetchCategory', { id: this.id })
+    this.$store.dispatch('fetchForums', { ids: category.forums })
   },
 }
 </script>

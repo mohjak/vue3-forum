@@ -71,7 +71,7 @@ export default createStore({
       const userId = state.authId
       const publishedAt = Math.floor(Date.now() / 1000)
       const thread = { forumId, title, publishedAt, userId, id }
-      commit('setItem', { resource: 'thread', item: thread })
+      commit('setItem', { resource: 'threads', item: thread })
       commit('appendThreadToUser', { parentId: userId, childId: id })
       commit('appendThreadToForum', { parentId: forumId, childId: id })
       dispatch('createPost', { text, threadId: id })
@@ -170,7 +170,12 @@ export default createStore({
 function makeAppendChildToParentMutation({ parent, child }) {
   return (state, { childId, parentId }) => {
     const resource = findById(state[parent], parentId)
+    if (!resource) {
+      console.warn(`Appending ${child} ${childId} to ${parent} ${parentId} faild because the parent didn't exists.`)
+      return
+    }
     resource[child] = resource[child] || []
+
     if (!resource[child].includes(childId)) {
       resource[child].push(childId)
     }
