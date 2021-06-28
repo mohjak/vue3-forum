@@ -5,6 +5,7 @@ import Forum from '@/pages/Forum'
 import Profile from '@/pages/Profile'
 import Category from '@/pages/Category'
 import Register from '@/pages/Register'
+import SignIn from '@/pages/SignIn'
 import NotFound from '@/pages/NotFound'
 import ThreadEdit from '@/pages/ThreadEdit'
 import ThreadShow from '@/pages/ThreadShow'
@@ -83,7 +84,16 @@ const routes = [
     name: 'Register',
     component: Register,
   },
-  { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },
+  {
+    path: '/signin',
+    name: 'SignIn',
+    component: SignIn,
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'NotFound',
+    component: NotFound,
+  },
 ]
 const router = createRouter({
   history: createWebHistory(),
