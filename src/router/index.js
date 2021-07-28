@@ -1,5 +1,4 @@
-// import sourceData from '@/data.json'
-// import { findById } from '@/helpers'
+import { findById } from '@/helpers'
 import Home from '@/pages/Home'
 import Forum from '@/pages/Forum'
 import Profile from '@/pages/Profile'
@@ -10,10 +9,8 @@ import NotFound from '@/pages/NotFound'
 import ThreadEdit from '@/pages/ThreadEdit'
 import ThreadShow from '@/pages/ThreadShow'
 import ThreadCreate from '@/pages/ThreadCreate'
-
 import store from '@/store'
 import { createRouter, createWebHistory } from 'vue-router'
-
 const routes = [
   {
     path: '/',
@@ -49,23 +46,24 @@ const routes = [
     name: 'ThreadShow',
     component: ThreadShow,
     props: true,
-    // beforeEnter(to, from, next) {
-    //   // check if thread exists
-    //   const trheadExists = findById(sourceData.threads, to.params.id)
-    //   // if exists continue
-    //   if (trheadExists) {
-    //     return next()
-    //   } else {
-    //     // if doesnt exists redirect to not found
-    //     next({
-    //       name: 'NotFound',
-    //       params: { pathMatch: to.path.substring(1).split('/') },
-    //       // preserve existing query and hash
-    //       query: to.query,
-    //       hash: to.hash,
-    //     })
-    //   }
-    // },
+    async beforeEnter(to, from, next) {
+      await store.dispatch('fetchThread', { id: to.params.id })
+      // check if thread exists
+      const threadExists = findById(store.state.threads, to.params.id)
+      // if exists continue
+      if (threadExists) {
+        return next()
+      } else {
+        // if doesnt exists redirect to not found
+        next({
+          name: 'NotFound',
+          params: { pathMatch: to.path.substring(1).split('/') },
+          // preserve existing query and hash
+          query: to.query,
+          hash: to.hash,
+        })
+      }
+    },
   },
   {
     path: '/forum/:forumId/thread/create',
