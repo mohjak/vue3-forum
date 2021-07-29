@@ -1,7 +1,7 @@
 import firebase from 'firebase'
 import { findById, docToResource } from '@/helpers'
 export default {
-  initAuthentication({ dispatch, commit, state }) {
+  initAuthentication({ /*dispatch,*/ commit, state }) {
     if (state.authObserverUnsubscribe) state.authObserverUnsubscribe()
     return new Promise((resolve) => {
       const unsubscribe = firebase.auth().onAuthStateChanged(async (user) => {
@@ -151,6 +151,12 @@ export default {
     })
     commit('setAuthId', userId)
   },
+  async fetchAuthUsersPosts({ commit, state }) {
+    const posts = await firebase.firestore().collection('posts').where('userId', '==', state.authId).get()
+    posts.forEach((item) => {
+      commit('setItem', { resource: 'posts', item })
+    })
+  },
   // ---------------------------------------
   // Fetch All of a Resource
   // ---------------------------------------
@@ -179,7 +185,7 @@ export default {
   fetchPosts: ({ dispatch }, { ids }) => dispatch('fetchItems', { resource: 'posts', ids, emoji: '💬' }),
   fetchUsers: ({ dispatch }, { ids }) => dispatch('fetchItems', { resource: 'users', ids, emoji: '🙋' }),
 
-  fetchItem({ state, commit }, { id, emoji, resource, handleUnsubscribe = null }) {
+  fetchItem({ /*state,*/ commit }, { id, emoji, resource, handleUnsubscribe = null }) {
     console.log('🔥', emoji, id)
     return new Promise((resolve) => {
       const unsubscribe = firebase
