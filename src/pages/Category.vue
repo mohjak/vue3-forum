@@ -22,13 +22,14 @@ export default {
   },
   computed: {
     category() {
-      return findById(this.$store.state.categories, this.id) || {}
+      return findById(this.$store.state.categories.items, this.id) || {}
     },
   },
   methods: {
-    ...mapActions(['fetchCategory', 'fetchForums']),
+    ...mapActions('categories', ['fetchCategory']),
+    ...mapActions('forums', ['fetchForums']),
     getForumsForCategory() {
-      return this.$store.state.forums.filter((forum) => forum.categoryId === this.id)
+      return this.$store.state.forums.items.filter((forum) => forum.categoryId === this.id)
     },
   },
   async created() {

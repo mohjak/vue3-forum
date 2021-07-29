@@ -25,7 +25,7 @@ export default {
   },
   methods: {
     getForumsForCategory(category) {
-      return this.forums.filter((forum) => forum.categoryId === category.id)
+      return this.forums.items.filter((forum) => forum.categoryId === category.id)
     },
   },
 }

@@ -32,7 +32,6 @@
 </template>
 
 <script>
-import sourceData from '@/data.json'
 import { findById } from '@/helpers'
 export default {
   props: {
@@ -41,11 +40,13 @@ export default {
       required: true,
     },
   },
-  data() {
-    return {
-      posts: sourceData.posts,
-      users: sourceData.users,
-    }
+  computed: {
+    posts() {
+      return this.$store.state.posts.items
+    },
+    users() {
+      return this.$store.state.users.items
+    },
   },
   methods: {
     postById(postId) {
@@ -57,5 +58,3 @@ export default {
   },
 }
 </script>
-
-<style></style>
