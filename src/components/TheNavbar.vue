@@ -1,5 +1,5 @@
 <template>
-  <header class="header" id="header" v-click-outside="() => (mobileNavMenu = false)">
+  <header class="header" id="header" v-click-outside="() => (mobileNavMenu = false)" v-page-scroll="() => (mobileNavMenu = false)">
     <router-link :to="{ name: 'Home' }" class="logo">
       <img src="../assets/svg/vueschool-logo.svg" />
     </router-link>
@@ -28,16 +28,24 @@
           <div id="user-dropdown" :class="{ 'active-drop': userDropdownOpen }">
             <div class="triangle-drop"></div>
             <ul class="dropdown-menu">
-              <li class="dropdown-menu-item"><router-link :to="{ name: 'Profile' }">View profile</router-link></li>
+              <li class="dropdown-menu-item">
+                <router-link :to="{ name: 'Profile' }">View profile</router-link>
+              </li>
               <li class="dropdown-menu-item">
                 <a @click.prevent="$store.dispatch('auth/signOut'), $router.push({ name: 'Home' })"> Sign Out </a>
               </li>
             </ul>
           </div>
         </li>
-        <li v-if="!authUser" class="navbar-item"><router-link :to="{ name: 'SignIn' }">Sign In</router-link></li>
-        <li v-if="!authUser" class="navbar-item"><router-link :to="{ name: 'Register' }">Register</router-link></li>
-        <li v-if="authUser" class="navbar-mobile-item"><router-link :to="{ name: 'Profile' }">View Profile</router-link></li>
+        <li v-if="!authUser" class="navbar-item">
+          <router-link :to="{ name: 'SignIn' }">Sign In</router-link>
+        </li>
+        <li v-if="!authUser" class="navbar-item">
+          <router-link :to="{ name: 'Register' }">Register</router-link>
+        </li>
+        <li v-if="authUser" class="navbar-mobile-item">
+          <router-link :to="{ name: 'Profile' }">View Profile</router-link>
+        </li>
         <li v-if="authUser" class="navbar-mobile-item">
           <a @click.prevent="$store.dispatch('auth/signOut'), $router.push({ name: 'Home' })">Sign Out</a>
         </li>
